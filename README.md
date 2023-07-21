@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_many :transactions
+- has_many :payments
 
 ## items テーブル
 
@@ -34,10 +34,10 @@
 
 ### Association
 
-- has_one :transaction
+- has_one :payment
 - belongs_to :user
 
-## transactions テーブル
+## payments テーブル
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
@@ -60,8 +60,8 @@
 | address            | string     | null: false                    |
 | building           | string     |                                |
 | phone              | string     | null: false                    |
-| transaction        | references | null: false, foreign_key: true |
+| payment            | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :transaction
+- belongs_to :payment
