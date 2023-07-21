@@ -20,17 +20,17 @@
 
 ## items テーブル
 
-| Column             | Type    | Options     |
-| ------------------ | ------- | ----------- |
-| name               | string  | null: false |
-| price              | string  | null: false |
-| explain            | string  | null: false |
-| seller             | string  | null: false |
-| category           | string  | null: false |
-| condition          | string  | null: false |
-| charge             | string  | null: false |
-| prefecture_id      | integer | null: false |
-| criterion          | string  | null: false |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| name               | string     | null: false                    |
+| price              | integer    | null: false                    |
+| explain            | text       | null: false                    |
+| category_id        | string     | null: false                    |
+| condition_id       | string     | null: false                    |
+| charge_id          | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| criterion_id       | string     | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -52,14 +52,15 @@
 
 ## shippings テーブル
 
-| Column             | Type    | Options     |
-| ------------------ | ------- | ----------- |
-| postal             | string  | null: false |
-| prefecture_id      | integer | null: false |
-| city               | string  | null: false |
-| address            | string  | null: false |
-| building           | string  |             |
-| phone              | string  | null: false |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| postal             | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| city               | string     | null: false                    |
+| address            | string     | null: false                    |
+| building           | string     |                                |
+| phone              | string     | null: false                    |
+| transaction        | references | null: false, foreign_key: true |
 
 ### Association
 
