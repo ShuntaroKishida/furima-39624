@@ -25,11 +25,11 @@
 | name               | string     | null: false                    |
 | price              | integer    | null: false                    |
 | explain            | text       | null: false                    |
-| category_id        | string     | null: false                    |
-| condition_id       | string     | null: false                    |
-| charge_id          | string     | null: false                    |
+| category_id        | integer    | null: false                    |
+| condition_id       | integer    | null: false                    |
+| charge_id          | integer    | null: false                    |
 | prefecture_id      | integer    | null: false                    |
-| criterion_id       | string     | null: false                    |
+| criterion_id       | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
 ### Association
