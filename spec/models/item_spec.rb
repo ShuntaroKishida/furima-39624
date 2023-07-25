@@ -34,8 +34,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
+      it 'category_idが1では登録できない' do
+        @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
       it 'condition_idが空では登録できない' do
         @item.condition_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+      it 'condition_idが1では登録できない' do
+        @item.condition_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
@@ -44,13 +54,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Charge can't be blank")
       end
+      it 'charge_idが1では登録できない' do
+        @item.charge_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Charge can't be blank")
+      end
       it 'prefecture_idが空では登録できない' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it 'prefecture_idが1では登録できない' do
+        @item.prefecture_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it 'criterion_idが空では登録できない' do
         @item.criterion_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Criterion can't be blank")
+      end
+      it 'criterion_idが1では登録できない' do
+        @item.criterion_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Criterion can't be blank")
       end
@@ -73,6 +98,11 @@ RSpec.describe Item, type: :model do
         @item.price = 'abc123'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'userが紐付いていないと保存できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
       end
 
     end
