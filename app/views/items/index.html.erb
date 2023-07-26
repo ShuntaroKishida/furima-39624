@@ -146,28 +146,30 @@
       <% else %>
         <% @items.each do |item| %>
           <li class='list'>
-            <div class='item-img-content'>
-              <%= image_tag item.image, class: "item-img" %>
+            <%= link_to(item_path(item.id)) do %>
+              <div class='item-img-content'>
+                <%= image_tag item.image, class: "item-img" %>
 
-              <%# if Payment.item != nil %>
-              <div class='sold-out'>
-                <span>Sold Out!!</span>
+                <%# if Payment.item != nil %>
+                <div class='sold-out'>
+                  <span>Sold Out!!</span>
+                </div>
+                <%# end %>
+
               </div>
-              <%# end %>
-
-            </div>
-            <div class='item-info'>
-              <h3 class='item-name'>
-                <%= item.name %>
-              </h3>
-              <div class='item-price'>
-                <span><%= item.price %>円<br><%= item.charge[:name] %></span>
-                <div class='star-btn'>
-                  <%= image_tag "star.png", class:"star-icon" %>
-                  <span class='star-count'>0</span>
+              <div class='item-info'>
+                <h3 class='item-name'>
+                  <%= item.name %>
+                </h3>
+                <div class='item-price'>
+                  <span><%= item.price %>円<br><%= item.charge[:name] %></span>
+                  <div class='star-btn'>
+                    <%= image_tag "star.png", class:"star-icon" %>
+                    <span class='star-count'>0</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            <% end %>
           </li>
         <% end %>
       <% end %>
