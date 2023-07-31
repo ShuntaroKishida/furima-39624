@@ -50,8 +50,18 @@ RSpec.describe PaymentsShippings, type: :model do
         @payment_shipping.valid?
         expect(@payment_shipping.errors.full_messages).to include("Phone can't be blank")
       end
-      it 'phoneが10桁以上11桁以内の半角数値のみでないと保存できないこと' do
-        @payment_shipping.phone = '090-1234-5678'
+      it 'phoneが9桁以下では保存できないこと' do
+        @payment_shipping.phone = '09012345'
+        @payment_shipping.valid?
+        expect(@payment_shipping.errors.full_messages).to include("Phone is invalid")
+      end
+      it 'phoneが12桁以上では保存できないこと' do
+        @payment_shipping.phone = '090123456789'
+        @payment_shipping.valid?
+        expect(@payment_shipping.errors.full_messages).to include("Phone is invalid")
+      end
+      it 'phoneに半角数字以外が含まれている場合は保存できないこと' do
+        @payment_shipping.phone = '090-1234567'
         @payment_shipping.valid?
         expect(@payment_shipping.errors.full_messages).to include("Phone is invalid")
       end
@@ -59,6 +69,16 @@ RSpec.describe PaymentsShippings, type: :model do
         @payment_shipping.token = nil
         @payment_shipping.valid?
         expect(@payment_shipping.errors.full_messages).to include("Token can't be blank")
+      end
+      it "userが紐付いていなければ購入できない" do
+        @payment_shipping.user_id = nil
+        @payment_shipping.valid?
+        expect(@payment_shipping.errors.full_messages).to include("User can't be blank")
+      end
+      it "itemが紐付いていなければ購入できない" do
+        @payment_shipping.item_id = nil
+        @payment_shipping.valid?
+        expect(@payment_shipping.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

@@ -1,8 +1,8 @@
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_item
 
   def index
-    @item = Item.find(params[:item_id])
     unless Payment.exists?(item_id: @item.id) || @item.user.id == current_user.id
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       @payment_shipping = PaymentsShippings.new
@@ -12,7 +12,6 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @payment_shipping = PaymentsShippings.new(payment_params)
     if @payment_shipping.valid?
       pay_item
@@ -24,6 +23,10 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def find_item
+    @item = Item.find(params[:item_id])
+  end
 
   def payment_params
     params.require(:payments_shippings).permit(:postal, :prefecture_id, :city, :address, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
