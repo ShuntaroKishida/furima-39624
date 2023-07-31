@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user.id != @item.user.id
+    if current_user.id != @item.user.id || Payment.exists?(item_id: @item.id)
       redirect_to action: :index
     end
   end
