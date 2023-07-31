@@ -55,6 +55,11 @@ RSpec.describe PaymentsShippings, type: :model do
         @payment_shipping.valid?
         expect(@payment_shipping.errors.full_messages).to include("Phone is invalid")
       end
+      it "tokenが空では登録できないこと" do
+        @payment_shipping.token = nil
+        @payment_shipping.valid?
+        expect(@payment_shipping.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
