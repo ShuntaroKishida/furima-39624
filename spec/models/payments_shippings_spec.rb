@@ -23,62 +23,62 @@ RSpec.describe PaymentsShippings, type: :model do
       it 'postalが空だと保存できないこと' do
         @payment_shipping.postal = ''
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Postal can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("郵便番号を入力してください")
       end
       it 'postalが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @payment_shipping.postal = '1234567'
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include('Postal is invalid. Include hyphen(-)')
+        expect(@payment_shipping.errors.full_messages).to include('郵便番号を（ー：ハイフン）を入れて正確に入力してください')
       end
       it 'prefecture_idを選択していないと保存できないこと' do
         @payment_shipping.prefecture_id = 1
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("発送元の地域を選択してください")
       end
       it 'cityが空だと保存できないこと' do
         @payment_shipping.city = ''
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("City can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("市区町村を入力してください")
       end
       it 'addressが空だと保存できないこと' do
         @payment_shipping.address = ''
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Address can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("番地を入力してください")
       end
       it 'phoneが空だと保存できないこと' do
         @payment_shipping.phone = ''
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Phone can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("電話番号を入力してください")
       end
       it 'phoneが9桁以下では保存できないこと' do
         @payment_shipping.phone = '09012345'
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Phone is invalid")
+        expect(@payment_shipping.errors.full_messages).to include("電話番号を（ー：ハイフン）を入れないで正確に入力してください")
       end
       it 'phoneが12桁以上では保存できないこと' do
         @payment_shipping.phone = '090123456789'
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Phone is invalid")
+        expect(@payment_shipping.errors.full_messages).to include("電話番号を（ー：ハイフン）を入れないで正確に入力してください")
       end
       it 'phoneに半角数字以外が含まれている場合は保存できないこと' do
         @payment_shipping.phone = '090-1234567'
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Phone is invalid")
+        expect(@payment_shipping.errors.full_messages).to include("電話番号を（ー：ハイフン）を入れないで正確に入力してください")
       end
       it "tokenが空では登録できないこと" do
         @payment_shipping.token = nil
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Token can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("クレジットカード情報を入力してください")
       end
       it "userが紐付いていなければ購入できない" do
         @payment_shipping.user_id = nil
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("User can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("Userを入力してください")
       end
       it "itemが紐付いていなければ購入できない" do
         @payment_shipping.item_id = nil
         @payment_shipping.valid?
-        expect(@payment_shipping.errors.full_messages).to include("Item can't be blank")
+        expect(@payment_shipping.errors.full_messages).to include("Itemを入力してください")
       end
     end
   end
