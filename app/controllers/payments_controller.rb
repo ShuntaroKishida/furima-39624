@@ -9,6 +9,14 @@ class PaymentsController < ApplicationController
     else
       redirect_to root_path
     end
+
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] # 環境変数を読み込む
+    card = Card.find_by(user_id: current_user.id) # ユーザーのid情報を元に、カード情報を取得
+
+    redirect_to new_card_path and return unless card.present?
+
+    customer = Payjp::Customer.retrieve(card.customer_token) # 先程のカード情報を元に、顧客情報を取得
+    @card = customer.cards.first
   end
 
   def create
@@ -29,16 +37,17 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payments_shippings).permit(:postal, :prefecture_id, :city, :address, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    params.require(:payments_shippings).permit(:postal, :prefecture_id, :city, :address, :building, :phone).merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    customer_token = current_user.card.customer_token
     item = Item.find(params[:item_id])
     price = item.price
     Payjp::Charge.create(
       amount: price,  # 商品の値段
-      card: payment_params[:token],    # カードトークン
+      customer: customer_token,    # 顧客のトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end

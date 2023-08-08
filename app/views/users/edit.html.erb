@@ -5,9 +5,41 @@
 <div class='form-wrap'>
   <div class='form-header'>
     <h1 class='form-header-text'>
-      会員情報入力
+      会員情報変更
     </h1>
   </div>
+
+  <div class='credit-card-form'>
+        <h1 class='info-input-haedline'>
+          クレジットカード情報（編集不可）
+        </h1>
+        <div class="form-group">
+          <div class='form-text-wrap'>
+            <label class="form-text">カード情報</label>
+            <span class="indispensable">必須</span>
+          </div>
+          <div class="input-default">
+            <%= "**** **** **** " + @card[:last4] %>
+          </div>
+          <div class='available-card'>
+            <%= image_tag 'card-visa.gif', class: 'card-logo'%>
+            <%= image_tag 'card-mastercard.gif', class: 'card-logo'%>
+            <%= image_tag 'card-jcb.gif', class: 'card-logo'%>
+            <%= image_tag 'card-amex.gif', class: 'card-logo'%>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class='form-text-wrap'>
+            <label class="form-text">有効期限</label>
+            <span class="indispensable">必須</span>
+          </div>
+          <div class='input-expiration-date-wrap'>
+            <div class="input-default">
+              <%= @card[:exp_month] %>/<%= @card[:exp_year] %>
+            </div>
+          </div>
+        </div>
+      </div>
 
   <%= render 'shared/error_messages', model: f.object %>
 
